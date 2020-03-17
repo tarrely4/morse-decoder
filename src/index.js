@@ -38,7 +38,16 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+  let message = '';
+  let dop = /00/g;
+  let dot = /10/g;
+  let dush = /11/g;
+  let letter = expr.replace(dush, '-').replace(dot, '.').replace(dop, '2');
+  let arr = letter.match(/.{5}/g).map(el => el.replace(/2/g, ''));
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] == '*****' ? message += ' ' : message += MORSE_TABLE[arr[i]];
+  }
+  return message.replace(/\s{2}/g, ' ');
 }
 
 module.exports = {
